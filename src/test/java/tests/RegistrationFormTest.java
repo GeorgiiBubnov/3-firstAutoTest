@@ -4,11 +4,7 @@ import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
-
-public class FirstAutoTest extends TestBase {
+public class RegistrationFormTest extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
 
