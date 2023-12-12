@@ -2,73 +2,76 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
+import utils.FakerUtils;
 
 
 public class RegistrationFormTest extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
+    FakerUtils faker = new FakerUtils();
 
 
     @Test
     void fillFormTest() {
         registrationPage.openPage()
-                .setFirstName("Georgio")
-                .setLastName("Li")
-                .setEmail("LiG@mail.com")
-                .setGender("Male")
-                .setNumber("0123456789")
-                .setDateOfBirth("19", "November", "1991")
-                .setSubjectInput("Social Studies")
-                .setHobbies("Sports")
-                .setUserPicture("207.png")
-                .setUserAddress("SPb")
-                .setState("NCR")
-                .setCity("Delhi")
+                .setFirstName(faker.firstName)
+                .setLastName(faker.lastName)
+                .setEmail(faker.email)
+                .setGender(faker.gender)
+                .setNumber(faker.telephoneNumber)
+                .setDateOfBirth(faker.day, faker.month, faker.year)
+                .setSubjectInput(faker.subject)
+                .setHobbies(faker.hobbies)
+                .setUserPicture(faker.file)
+                .setUserAddress(faker.address)
+                .setState(faker.state)
+                .setCity(faker.city)
                 .submit()
 
-                .checkResultTable("Student Name", "Georgio Li")
-                .checkResultTable("Student Email", "LiG@mail.com")
-                .checkResultTable("Gender", "Male")
-                .checkResultTable("Mobile", "0123456789")
-                .checkResultTable("Date of Birth", "19 November,1991")
-                .checkResultTable("Subjects", "Social Studies")
-                .checkResultTable("Hobbies", "Sports")
-                .checkResultTable("Picture", "207.png")
-                .checkResultTable("Address", "SPb")
-                .checkResultTable("State and City", "NCR Delhi");
+                .checkResultTable("Student Name", faker.firstName + " " + faker.lastName)
+                .checkResultTable("Student Email", faker.email)
+                .checkResultTable("Gender", faker.gender)
+                .checkResultTable("Mobile", faker.telephoneNumber)
+                .checkResultTable("Date of Birth", faker.day + " " + faker.month + "," + faker.year)
+                .checkResultTable("Subjects", faker.subject)
+                .checkResultTable("Hobbies", faker.hobbies)
+                .checkResultTable("Picture", faker.file)
+                .checkResultTable("Address", faker.address)
+                .checkResultTable("State and City", faker.state + " " + faker.city);
+
     }
 
     @Test
     void minimalFillFormTest() {
         registrationPage.openPage()
-                .setFirstName("Lion")
-                .setLastName("King")
-                .setEmail("Bestofthebest@mail.com")
-                .setGender("Male")
-                .setNumber("7777777777")
-                .setDateOfBirth("27", "January", "2024")
+                .setFirstName(faker.firstName)
+                .setLastName(faker.lastName)
+                .setEmail(faker.email)
+                .setGender(faker.gender)
+                .setNumber(faker.telephoneNumber)
+                .setDateOfBirth(faker.day, faker.month, faker.year)
                 .submit()
 
-                .checkResultTable("Student Name", "Lion King")
-                .checkResultTable("Student Email", "Bestofthebest@mail.com")
-                .checkResultTable("Gender", "Male")
-                .checkResultTable("Mobile", "7777777777")
-                .checkResultTable("Date of Birth", "27 January,2024");
+                .checkResultTable("Student Name", faker.firstName + " " + faker.lastName)
+                .checkResultTable("Student Email", faker.email)
+                .checkResultTable("Gender", faker.gender)
+                .checkResultTable("Mobile", faker.telephoneNumber)
+                .checkResultTable("Date of Birth", faker.day + " " + faker.month + "," + faker.year);
     }
 
     @Test
-    void negativeFillFormTest () {
+    void negativeFillFormTest() {
         registrationPage.openPage()
-                .setFirstName("Lion")
-                .setLastName("King")
-                .setEmail("Bestofthebestmail.com")
-                .setGender("Male")
-                .setNumber("7777777777")
-                .setDateOfBirth("27", "January", "2024")
+                .setFirstName(faker.firstName)
+                .setLastName(faker.lastName)
+                .setEmail(faker.address)
+                .setGender(faker.gender)
+                .setNumber(faker.telephoneNumber)
+                .setDateOfBirth(faker.day, faker.month, faker.year)
                 .submit()
                 .verifyEmailFieldIsRed();
 
     }
 
-    }
+}
 
