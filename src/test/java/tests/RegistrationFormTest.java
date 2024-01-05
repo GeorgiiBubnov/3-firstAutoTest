@@ -1,5 +1,6 @@
 package tests;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
@@ -18,6 +19,7 @@ public class RegistrationFormTest extends TestBase {
 
     @Test
     @Tag("form")
+    @DisplayName("Заполнение всех полей регистрационной формы")
     void fillFormTest() {
         webSteps.openRegistrationPage(baseUrl);
         webSteps.setFirstName();
@@ -49,6 +51,7 @@ public class RegistrationFormTest extends TestBase {
 
     @Test
     @Tag("form")
+    @DisplayName("Заполнение минимального количества полей регистрационной формы")
     void minimalFillFormTest() {
         webSteps.openRegistrationPage(baseUrl);
         webSteps.setFirstName();
@@ -69,6 +72,7 @@ public class RegistrationFormTest extends TestBase {
 
     @Test
     @Tag("form")
+    @DisplayName("Неверное заполнение поля 'Email' с целью убедиться, что граница поля будет красным")
     void negativeFillFormTest() {
         webSteps.openRegistrationPage(baseUrl);
         webSteps.setFirstName();
