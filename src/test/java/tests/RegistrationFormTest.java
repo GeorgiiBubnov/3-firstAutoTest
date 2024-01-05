@@ -1,75 +1,86 @@
 package tests;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
+import steps.WebSteps;
 import utils.FakerUtils;
+
+import static com.codeborne.selenide.Configuration.baseUrl;
 
 
 public class RegistrationFormTest extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
     FakerUtils faker = new FakerUtils();
+    WebSteps webSteps = new WebSteps();
 
 
     @Test
+    @Tag("form")
     void fillFormTest() {
-        registrationPage.openPage()
-                .setFirstName(faker.firstName)
-                .setLastName(faker.lastName)
-                .setEmail(faker.email)
-                .setGender(faker.gender)
-                .setNumber(faker.telephoneNumber)
-                .setDateOfBirth(faker.day, faker.month, faker.year)
-                .setSubjectInput(faker.subject)
-                .setHobbies(faker.hobbies)
-                .setUserPicture(faker.file)
-                .setUserAddress(faker.address)
-                .setState(faker.state)
-                .setCity(faker.city)
-                .submit()
+        webSteps.openRegistrationPage(baseUrl);
+        webSteps.setFirstName();
+        webSteps.setLastName();
+        webSteps.setEmail();
+        webSteps.setGender();
+        webSteps.setNumber();
+        webSteps.setDateOfBirth();
+        webSteps.setSubjectInput();
+        webSteps.setHobbies();
+        webSteps.setUserPicture();
+        webSteps.setUserAddress();
+        webSteps.setState();
+        webSteps.setCity();
+        webSteps.submit();
 
-                .checkResultTable("Student Name", faker.firstName + " " + faker.lastName)
-                .checkResultTable("Student Email", faker.email)
-                .checkResultTable("Gender", faker.gender)
-                .checkResultTable("Mobile", faker.telephoneNumber)
-                .checkResultTable("Date of Birth", faker.day + " " + faker.month + "," + faker.year)
-                .checkResultTable("Subjects", faker.subject)
-                .checkResultTable("Hobbies", faker.hobbies)
-                .checkResultTable("Picture", faker.file)
-                .checkResultTable("Address", faker.address)
-                .checkResultTable("State and City", faker.state + " " + faker.city);
-
+        webSteps.checkResultFirstAndLastName();
+        webSteps.checkResultEmail();
+        webSteps.checkResultGender();
+        webSteps.checkResultNumber();
+        webSteps.checkResultDateOfBirth();
+        webSteps.checkResultSubjects();
+        webSteps.checkResultHobbies();
+        webSteps.checkResultPicture();
+        webSteps.checkResultAddress();
+        webSteps.checkResultStateAndCity();
     }
 
+
     @Test
+    @Tag("form")
     void minimalFillFormTest() {
-        registrationPage.openPage()
-                .setFirstName(faker.firstName)
-                .setLastName(faker.lastName)
-                .setEmail(faker.email)
-                .setGender(faker.gender)
-                .setNumber(faker.telephoneNumber)
-                .setDateOfBirth(faker.day, faker.month, faker.year)
-                .submit()
+        webSteps.openRegistrationPage(baseUrl);
+        webSteps.setFirstName();
+        webSteps.setLastName();
+        webSteps.setEmail();
+        webSteps.setGender();
+        webSteps.setNumber();
+        webSteps.setDateOfBirth();
+        webSteps.submit();
 
-                .checkResultTable("Student Name", faker.firstName + " " + faker.lastName)
-                .checkResultTable("Student Email", faker.email)
-                .checkResultTable("Gender", faker.gender)
-                .checkResultTable("Mobile", faker.telephoneNumber)
-                .checkResultTable("Date of Birth", faker.day + " " + faker.month + "," + faker.year);
+        webSteps.checkResultFirstAndLastName();
+        webSteps.checkResultEmail();
+        webSteps.checkResultGender();
+        webSteps.checkResultNumber();
+        webSteps.checkResultDateOfBirth();
+
     }
 
     @Test
+    @Tag("form")
     void negativeFillFormTest() {
-        registrationPage.openPage()
-                .setFirstName(faker.firstName)
-                .setLastName(faker.lastName)
-                .setEmail(faker.address)
-                .setGender(faker.gender)
-                .setNumber(faker.telephoneNumber)
-                .setDateOfBirth(faker.day, faker.month, faker.year)
-                .submit()
-                .verifyEmailFieldIsRed();
+        webSteps.openRegistrationPage(baseUrl);
+        webSteps.setFirstName();
+        webSteps.setLastName();
+        webSteps.setWrongEmail();
+        webSteps.setGender();
+        webSteps.setNumber();
+        webSteps.setDateOfBirth();
+        webSteps.submit();
+
+        webSteps.checkResultRedBorder();
+
 
     }
 

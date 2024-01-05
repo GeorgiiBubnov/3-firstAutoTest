@@ -11,6 +11,7 @@ import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class RegistrationPage {
 
+
     private SelenideElement firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
             userEmailInput = $("#userEmail"),
@@ -30,8 +31,8 @@ public class RegistrationPage {
     TableComponent tableComponent = new TableComponent();
 
 
-    public RegistrationPage openPage() {
-        open("/automation-practice-form");
+    public RegistrationPage openPage(String url) {
+        open(url);
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
 
