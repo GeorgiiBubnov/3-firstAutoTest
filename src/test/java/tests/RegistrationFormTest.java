@@ -19,6 +19,7 @@ public class RegistrationFormTest extends TestBase {
 
     @Test
     @Tag("form")
+    @Tag("smoke")
     @DisplayName("Заполнение всех полей регистрационной формы")
     void fillFormTest() {
         webSteps.openRegistrationPage(baseUrl);

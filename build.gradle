@@ -59,3 +59,9 @@ task form_test(type: Test) {
         includeTags("form")
     }
 }
+
+task smoke_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("smoke")
+    }
+}
