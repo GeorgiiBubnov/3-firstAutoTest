@@ -4,90 +4,83 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
-import steps.WebSteps;
 import utils.FakerUtils;
-
-import static com.codeborne.selenide.Configuration.baseUrl;
 
 
 public class RegistrationFormTest extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
     FakerUtils faker = new FakerUtils();
-    WebSteps webSteps = new WebSteps();
 
 
     @Test
-    @Tag("form")
     @Tag("smoke")
     @DisplayName("Заполнение всех полей регистрационной формы")
     void fillFormTest() {
-        webSteps.openRegistrationPage(baseUrl);
-        webSteps.setFirstName();
-        webSteps.setLastName();
-        webSteps.setEmail();
-        webSteps.setGender();
-        webSteps.setNumber();
-        webSteps.setDateOfBirth();
-        webSteps.setSubjectInput();
-        webSteps.setHobbies();
-        webSteps.setUserPicture();
-        webSteps.setUserAddress();
-        webSteps.setState();
-        webSteps.setCity();
-        webSteps.submit();
+        registrationPage.openPage()
+                .setFirstName(faker.firstName)
+                .setLastName(faker.lastName)
+                .setEmail(faker.email)
+                .setGender(faker.gender)
+                .setNumber(faker.telephoneNumber)
+                .setDateOfBirth(faker.day, faker.month, faker.year)
+                .setSubjectInput(faker.subject)
+                .setHobbies(faker.hobbies)
+                .setUserPicture(faker.file)
+                .setUserAddress(faker.address)
+                .setState(faker.state)
+                .setCity(faker.city)
+                .submit()
 
-        webSteps.checkResultFirstAndLastName();
-        webSteps.checkResultEmail();
-        webSteps.checkResultGender();
-        webSteps.checkResultNumber();
-        webSteps.checkResultDateOfBirth();
-        webSteps.checkResultSubjects();
-        webSteps.checkResultHobbies();
-        webSteps.checkResultPicture();
-        webSteps.checkResultAddress();
-        webSteps.checkResultStateAndCity();
+                .checkResultTable("Student Name", faker.firstName + " " + faker.lastName)
+                .checkResultTable("Student Email", faker.email)
+                .checkResultTable("Gender", faker.gender)
+                .checkResultTable("Mobile", faker.telephoneNumber)
+                .checkResultTable("Date of Birth", faker.day + " " + faker.month + "," + faker.year)
+                .checkResultTable("Subjects", faker.subject)
+                .checkResultTable("Hobbies", faker.hobbies)
+                .checkResultTable("Picture", faker.file)
+                .checkResultTable("Address", faker.address)
+                .checkResultTable("State and City", faker.state + " " + faker.city);
+
     }
-
 
     @Test
     @Tag("form")
     @DisplayName("Заполнение минимального количества полей регистрационной формы")
     void minimalFillFormTest() {
-        webSteps.openRegistrationPage(baseUrl);
-        webSteps.setFirstName();
-        webSteps.setLastName();
-        webSteps.setEmail();
-        webSteps.setGender();
-        webSteps.setNumber();
-        webSteps.setDateOfBirth();
-        webSteps.submit();
+        registrationPage.openPage()
+                .setFirstName(faker.firstName)
+                .setLastName(faker.lastName)
+                .setEmail(faker.email)
+                .setGender(faker.gender)
+                .setNumber(faker.telephoneNumber)
+                .setDateOfBirth(faker.day, faker.month, faker.year)
+                .submit()
 
-        webSteps.checkResultFirstAndLastName();
-        webSteps.checkResultEmail();
-        webSteps.checkResultGender();
-        webSteps.checkResultNumber();
-        webSteps.checkResultDateOfBirth();
-
+                .checkResultTable("Student Name", faker.firstName + " " + faker.lastName)
+                .checkResultTable("Student Email", faker.email)
+                .checkResultTable("Gender", faker.gender)
+                .checkResultTable("Mobile", faker.telephoneNumber)
+                .checkResultTable("Date of Birth", faker.day + " " + faker.month + "," + faker.year);
     }
 
     @Test
     @Tag("form")
     @DisplayName("Неверное заполнение поля 'Email' с целью убедиться, что граница поля будет красным")
     void negativeFillFormTest() {
-        webSteps.openRegistrationPage(baseUrl);
-        webSteps.setFirstName();
-        webSteps.setLastName();
-        webSteps.setWrongEmail();
-        webSteps.setGender();
-        webSteps.setNumber();
-        webSteps.setDateOfBirth();
-        webSteps.submit();
-
-        webSteps.checkResultRedBorder();
-
+        registrationPage.openPage()
+                .setFirstName(faker.firstName)
+                .setLastName(faker.lastName)
+                .setEmail(faker.address)
+                .setGender(faker.gender)
+                .setNumber(faker.telephoneNumber)
+                .setDateOfBirth(faker.day, faker.month, faker.year)
+                .submit()
+                .verifyEmailFieldIsRed();
 
     }
 
 }
+
 
