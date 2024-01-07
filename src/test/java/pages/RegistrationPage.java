@@ -31,7 +31,7 @@ public class RegistrationPage {
     CalendarComponent calendarComponent = new CalendarComponent();
     TableComponent tableComponent = new TableComponent();
 
-    @Step("Открываем страницу заполнения регистрационной формы {0}")
+    @Step("Открываем страницу заполнения регистрационной формы https://demoqa.com/automation-practice-form")
     public RegistrationPage openPage() {
         open("/automation-practice-form");
         executeJavaScript("$('#fixedban').remove()");
